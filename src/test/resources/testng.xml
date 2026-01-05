@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Automation Suite">
+
+    <listeners>
+        <listener class-name="listeners.ExtentTestListener"/>
+    </listeners>
+
+    <test name="Amazon Test">
+        <classes>
+            <class name="tests.AmazonProductFlowTest"/>
+        </classes>
+    </test>
+
+</suite>
