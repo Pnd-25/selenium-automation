@@ -1,76 +1,89 @@
-Amazon Selenium Automation Project
-Overview
+# Amazon Selenium Automation Project
 
-This project demonstrates a real-world Selenium automation framework for an e-commerce workflow using Amazon as the target application.
-It showcases best practices in Page Object Model (POM) design, synchronization, window handling, screenshots, logging, and reporting.
+## Overview
 
-The focus of this project is framework design, stability, and professional decision-making, not bypassing security mechanisms.
+This project demonstrates a real-world Selenium automation framework for an e-commerce workflow using **Amazon** as the target application.
 
-Tech Stack
+It showcases best practices in:
+- Page Object Model (POM)
+- Explicit waits and synchronization
+- Window and tab handling
+- Screenshot capture
+- Logging and reporting
+- Handling dynamic and unstable UI behavior
 
-Java: 17
+The focus of this project is **framework design, stability, and professional automation decision-making**, not bypassing security mechanisms.
 
-Selenium WebDriver: 4.x
+---
 
-Test Framework: TestNG
+## Tech Stack
 
-Build Tool: Maven
+- **Java**: 17  
+- **Selenium WebDriver**: 4.x  
+- **Test Framework**: TestNG  
+- **Build Tool**: Maven  
+- **Driver Management**: WebDriverManager  
+- **Logging**: Log4j2  
+- **Reporting**: TestNG default reports (Extent optional)
 
-Driver Management: WebDriverManager
+---
 
-Logging: Log4j2
+## Automated Scenario
 
-Reporting: TestNG default reports (Extent optional)
+1. Navigate to Amazon homepage  
+2. Search for a product (e.g., *Laptop*)  
+3. Click the first valid product from search results  
+4. Handle new tab or window if opened  
+5. Validate presence of **Add to Cart** button  
+6. Capture screenshot of the product details page  
 
-Automated Scenario
+---
 
-Navigate to Amazon homepage
+## Project Structure
 
-Search for a product (e.g., Laptop)
 
-Click the first valid product from search results
-
-Handle new tab/window if opened
-
-Validate presence of Add to Cart button
-
-Capture screenshot of the product details page
-
-Project Structure
 amazon-selenium-automation
 │
 ├── pom.xml
 ├── README.md
 │
 ├── src
-│   ├── main
-│   │   └── java
-│   │       ├── driver        → WebDriver setup
-│   │       ├── pages         → Page Object classes
-│   │       └── utils         → Wait & Screenshot utilities
-│   │
-│   └── test
-│       ├── java
-│       │   ├── base          → Base test setup
-│       │   ├── listeners     → Test listeners
-│       │   └── tests         → Test cases
-│       └── resources
-│           └── testng.xml
+│ ├── main
+│ │ └── java
+│ │ ├── driver // WebDriver setup
+│ │ ├── pages // Page Object classes
+│ │ └── utils // Wait & Screenshot utilities
+│ │
+│ └── test
+│ ├── java
+│ │ ├── base // Base test setup
+│ │ ├── listeners // Test listeners
+│ │ └── tests // Test cases
+│ └── resources
+│ └── testng.xml
 │
-├── screenshots               → Test screenshots
-└── logs                      → Execution logs
+├── screenshots // Test screenshots
+└── logs // Execution logs
 
-How to Run
-Using Maven
+
+---
+
+## How to Run
+
+### Using Maven
+
+```bash
 mvn clean test
 
 Using TestNG
 
 Open testng.xml
 
-Right-click → Run As → TestNG Suite
+Right-click
 
-Screenshot & Logging
+Run As → TestNG Suite
+
+Screenshots & Logging
 
 Screenshots are captured after successful validation
 
@@ -83,13 +96,17 @@ Execution logs are written to the logs/ directory using Log4j2
 Real-World Challenges Addressed
 1. Dynamic & Frequently Changing DOM
 
-Amazon pages are highly dynamic and change frequently.
+Amazon pages are highly dynamic and change frequently due to:
 
-Sponsored ads, A/B testing, and dynamic rendering affect element locators.
+Sponsored ads
 
-Mitigation:
+A/B experiments
 
-Stable, scoped locators
+Dynamic rendering
+
+Mitigation
+
+Stable and scoped locators
 
 Explicit waits instead of static delays
 
@@ -97,33 +114,25 @@ Explicit waits instead of static delays
 
 Amazon search results frequently include Sponsored Products that behave differently from organic results.
 
-Observed behavior:
+Observed Behavior
 
-Sponsored products often appear at the top of search results
+Sponsored items often appear at the top
 
 They may open in new tabs
 
-DOM structure and position can change between page loads
+DOM structure and position change between page loads
 
-Impact on automation:
+Impact
 
-Clicking the absolute first visible result can lead to inconsistent behavior
+Clicking the absolute first visible result leads to flaky tests
 
-Sponsored items may cause flaky execution due to non-deterministic UI changes
+Design Decision
 
-Design decision:
+Automation targets the first valid, stable product link
 
-The automation targets the first valid, stable product link
+In some runs, this may be the second or third visible product
 
-In some executions, this may result in selecting the second or third visible product
-
-This approach prioritizes test reliability over positional assumptions
-
-This reflects real-world automation strategy where:
-
-Sponsored content is treated as non-deterministic
-
-Stability is preferred over marketing placement
+This prioritizes test reliability over positional assumptions, reflecting real-world automation strategy.
 
 3. Window / Tab Handling
 
@@ -133,7 +142,7 @@ Window-switching logic ensures validation occurs on the correct page
 
 4. Cloudflare & Bot Detection
 
-Amazon uses advanced bot-detection mechanisms
+Amazon uses advanced bot-detection mechanisms.
 
 Automated browsers may encounter:
 
@@ -141,25 +150,27 @@ Automated browsers may encounter:
 
 Temporary blocking
 
+Important
+
 Security mechanisms are intentionally not bypassed
 
-Test flows are adjusted to avoid protected endpoints while still validating core functionality
+Test flows avoid protected endpoints while still validating core functionality
 
 5. Stale Element Reference Handling
 
-DOM refresh after search can cause stale element references
+DOM refresh after search can cause stale element references.
 
-Mitigation:
+Mitigation
 
 Elements are re-located after navigation
 
 No caching of WebElement instances
 
-Wait utilities return fresh elements
+Wait utilities always return fresh elements
 
 6. Add to Cart Button Variability
 
-The “Add to Cart” button structure varies based on:
+The Add to Cart button structure varies based on:
 
 Product type
 
@@ -167,7 +178,7 @@ Availability
 
 Region
 
-Validation is performed using presence and visibility checks rather than fixed IDs
+Validation is done using presence and visibility checks, not fixed IDs.
 
 Design Decisions
 
@@ -181,11 +192,11 @@ Framework designed to be reusable across e-commerce platforms
 
 Known Limitations
 
-Amazon search may occasionally trigger bot-detection
+Amazon search may occasionally trigger bot detection
 
 CAPTCHA / Cloudflare scenarios are intentionally excluded
 
-This project focuses on UI automation best practices, not security testing
+Focus is on UI automation best practices, not security testing
 
 Why This Project
 
@@ -197,8 +208,13 @@ Handling of dynamic e-commerce UI behavior
 
 Professional automation judgment
 
-Interview-ready coding standards
 
 Note
 
-In enterprise environments, automation is executed in QA/UAT environments where bot protection is disabled or automation IPs are whitelisted.
+In enterprise environments, automation is executed in QA/UAT environments where:
+
+Bot protection is disabled, or
+
+Automation IPs are whitelisted
+
+This project reflects industry-standard practices, not shortcuts.
