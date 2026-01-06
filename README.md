@@ -18,7 +18,7 @@ The focus of this project is **framework design, stability, and professional aut
 
 ## Tech Stack
 
-- **Java**: 17  
+- **Java**: 11 
 - **Selenium WebDriver**: 4.x  
 - **Test Framework**: TestNG  
 - **Build Tool**: Maven  
